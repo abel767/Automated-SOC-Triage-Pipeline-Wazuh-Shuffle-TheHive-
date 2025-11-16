@@ -1,0 +1,1 @@
+# Automated-SOC-Triage-Pipeline-Wazuh-Shuffle-TheHive-
