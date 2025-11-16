@@ -1,5 +1,3 @@
-<img width="1247" height="420" alt="image" src="https://github.com/user-attachments/assets/23a7d453-570b-4f25-bf96-db0517b6ffb3" /># Automated-SOC-Triage-Pipeline-Wazuh-Shuffle-TheHive-
-
 This project implements an automated SOC (Security Operations Center) workflow that detects suspicious activity in endpoints, enriches alerts with threat intelligence, and generates actionable incidents for SOC analysts. The system is designed for rapid detection, triage, and investigation of malware activity, using a combination of Wazuh, Shuffle, TheHive, and VirusTotal.
 <br>
 The primary focus is to detect Mimikatz activity on a Windows endpoint, automate its processing through a SOC workflow, and notify analysts for further investigation.
