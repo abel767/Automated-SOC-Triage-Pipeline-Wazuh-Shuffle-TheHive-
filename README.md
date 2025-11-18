@@ -1,3 +1,18 @@
+![Wazuh](https://img.shields.io/badge/Wazuh-4.7+-blue?logo=wazuh&logoColor=white)
+![TheHive](https://img.shields.io/badge/TheHive-4.2.4-yellow?logo=apachehive&logoColor=white)
+![Shuffle](https://img.shields.io/badge/Shuffle-SOAR-orange)
+![VirusTotal](https://img.shields.io/badge/VirusTotal-API-brightgreen?logo=virustotal&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-22.04-E95420?logo=ubuntu&logoColor=white)
+![Windows 10](https://img.shields.io/badge/Windows-10-0078D6?logo=windows&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Enabled-2496ED?logo=docker&logoColor=white)
+![Ngrok](https://img.shields.io/badge/Ngrok-Tunneled-1F1F1F?logo=ngrok&logoColor=white)
+![Detection](https://img.shields.io/badge/Detection-Automated-success)
+![Triage](https://img.shields.io/badge/Triage-SOAR-blueviolet)
+![Incident Management](https://img.shields.io/badge/TheHive-Incident_Management-yellow)
+![Threat Intel](https://img.shields.io/badge/Threat_Intel-VirusTotal-red)
+![Email Alerts](https://img.shields.io/badge/Email-Automated-green)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen)
+
 This project implements an automated SOC (Security Operations Center) workflow that detects suspicious activity in endpoints, enriches alerts with threat intelligence, and generates actionable incidents for SOC analysts. The system is designed for rapid detection, triage, and investigation of malware activity, using a combination of Wazuh, Shuffle, TheHive, and VirusTotal.
 <br>
 The primary focus is to detect Mimikatz activity on a Windows endpoint, automate its processing through a SOC workflow, and notify analysts for further investigation.
@@ -40,12 +55,11 @@ Three primary parts of the architecture are installed in virtual machines:
 Wazuh creates security alerts and keeps an eye on endpoints.<br>
 
 **Installation Steps:** <br>
-
+```bash
 curl -sO https://packages.wazuh.com/4.7/wazuh-install.sh <br>
 sudo bash ./wazuh-install.sh -a <br>
 sudo tar -xvf wazuh-install-files.tar <br>
-<br>
-
+```
 <img width="600" height="350" alt="wazuh" src="https://github.com/user-attachments/assets/f25d1eef-78bf-462d-9f04-7c609268e1fd" />
 <br>
 <br>
@@ -63,21 +77,22 @@ sudo tar -xvf wazuh-install-files.tar <br>
 TheHive is used for incident management and alert tracking.<br>
 
 **Dependencies:** <br>
-
+```bash
 sudo apt update <br>
 sudo apt install wget gnupg apt-transport-https git ca-certificates curl software-properties-common python3-pip lsb-release <br>
-
+```
 <img width="600" height="350" alt="theHive" src="https://github.com/user-attachments/assets/7529832f-cfdf-4de9-a91e-b5909bcc1b9b" />
 <br>
 
 **Java (Amazon Corretto 17):** 
-<br>
+```bash
 wget -qO- https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto.gpg <br>
 echo "deb [signed-by=/usr/share/keyrings/corretto.gpg] https://apt.corretto.aws stable main" | sudo tee /etc/apt/sources.list.d/corretto.sources.list <br>
 sudo apt update <br>
 sudo apt install java-17-amazon-corretto-jdk <br>
 echo 'JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto"' | sudo tee -a /etc/environment <br>
-export JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto" <br>
+export JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto"
+```
 <br>
 <br>
 <img width="600" height="350" alt="thehiveJava" src="https://github.com/user-attachments/assets/8e1e3242-de7a-4968-bf3f-680ec5af91e4" />
@@ -85,18 +100,21 @@ export JAVA_HOME="/usr/lib/jvm/java-17-amazon-corretto" <br>
 <br>
 
 **Cassandra Database:** <br>
+```bash
 wget -qO - https://downloads.apache.org/cassandra/KEYS | sudo gpg --dearmor -o /usr/share/keyrings/cassandra-archive.gpg <br>
 echo "deb [signed-by=/usr/share/keyrings/cassandra-archive.gpg] https://debian.cassandra.apache.org 40x main" | sudo tee /etc/apt/sources.list.d/cassandra.sources.list <br>
 sudo apt update <br>
 sudo apt install cassandra <br>
 sudo systemctl enable cassandra <br>
 sudo systemctl start cassandra <br>
+```
 <br>
 <img width="600" height="350" alt="casasndra" src="https://github.com/user-attachments/assets/ae7c7d98-5b5f-4b4a-b140-ea56e1d09590" /> <br>
 <br>
 
 **Elasticsearch (Latest 8.x):** <br>
 <br>
+```bash
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg <br>
 sudo apt install apt-transport-https <br>
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list <br>
@@ -104,15 +122,18 @@ sudo apt update <br>
 sudo apt install elasticsearch <br>
 sudo systemctl enable elasticsearch <br>
 sudo systemctl start elasticsearch <br>
+```
 <br>
 <img width="600" height="350" alt="elastic" src="https://github.com/user-attachments/assets/d9862606-1051-4a96-b2ea-28014d6b7003" /> <br>
 <br>
 
 **Docker Deployment of TheHive:** <br>
 <br>
+```bash
 sudo apt install docker.io docker-compose -y <br>
 sudo docker pull thehiveproject/thehive:4.2.4-1 <br>
 sudo docker run -d --name thehive -p 9000:9000 thehiveproject/thehive:4.2.4-1 <br>
+```
 <br>
 <img width="600" height="350" alt="dockerHive" src="https://github.com/user-attachments/assets/d8746cc8-02b4-43e6-87f8-ef4694cf1985" /> <br>
 <br>
@@ -123,13 +144,14 @@ Ngrok was set up and installed on the TheHive server to enable external access t
 **Installing Ngrok** <br>
 
 Ngrok was installed from the official repository using the following method: <br>
-
+```bash
 curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ <br>
   | sudo tee /etc/apt/trusted.gpg.d/ngrok.asc >/dev/null \ <br>
   && echo "deb https://ngrok-agent.s3.amazonaws.com bookworm main" \ <br>
   | sudo tee /etc/apt/sources.list.d/ngrok.list \ <br>
   && sudo apt update \ <br>
   && sudo apt install ngrok <br>
+```
 <br>
   <img width="600" height="350" alt="ngrok" src="https://github.com/user-attachments/assets/d0b2c4f2-6220-455f-bfd9-cd96a473af65" />
 
@@ -138,15 +160,17 @@ curl -sSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc \ <br>
 This procedure installed the Ngrok package, set up the repository, and added Ngrok's official GPG key. <br>
 
 After installation, the Ngrok agent was authenticated using a personal authtoken: <br>
-
-**ngrok config add-authtoken <YOUR_NGROK_AUTHTOKEN>** <br>
+```bash
+ngrok config add-authtoken <YOUR_NGROK_AUTHTOKEN>
+```
 <br>
 <img width="600" height="350" alt="ngrokAuth" src="https://github.com/user-attachments/assets/baada72b-dbaa-42bd-864b-42698aff4e2d" />
 
 
 This allowed Ngrok to generate public tunnels under the authenticated account. Finally, TheHive dashboard was exposed via the following command:
-
-**ngrok http 9000**
+```bash
+ngrok http 9000
+```
 <br>
 
 <img width="600" height="360" alt="ngrokHttp" src="https://github.com/user-attachments/assets/b1f9626d-c9d7-465a-81a1-aaf55b5c4ca2" />
