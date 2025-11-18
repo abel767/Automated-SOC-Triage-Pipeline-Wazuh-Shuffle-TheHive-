@@ -237,6 +237,7 @@ Shuffle is the automation engine that connects Wazuh, VirusTotal, TheHive, and e
 <img width="600" height="350" alt="win10Exec" src="https://github.com/user-attachments/assets/52f9018b-3753-4247-a04b-96443c3d214a" />
 <br>
 <br>
+
 - **Wazuh Log Verification:** Screenshot of the Wazuh dashboard showing the captured Mimikatz alert and relevant log details.
 <br>
 <br>
